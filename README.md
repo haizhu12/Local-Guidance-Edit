@@ -1,34 +1,60 @@
 # Local-Guidance-Edit
-# InstructPix2Pix: Learning to Follow Image Editing Instructions
+# Diffusion-Based Zero-Shot Image Editing with Enhanced Cross-Attention Control and Localized Guidance
 ### [Project Page](https://www.timothybrooks.com/instruct-pix2pix/) | [Paper]() | [Data]()
-PyTorch implementation of InstructPix2Pix, an instruction-based image editing model, based on the original [CompVis/stable_diffusion](https://github.com/CompVis/stable-diffusion) repo. <br>
 
 [InstructPix2Pix: Learning to Follow Image Editing Instructions](https://www.timothybrooks.com/instruct-pix2pix/)  
  [Tim Brooks](https://www.timothybrooks.com/)\*,
  [Aleksander Holynski](https://holynski.org/)\*,
  [Alexei A. Efros](https://people.eecs.berkeley.edu/~efros/) <br>
- UC Berkeley <br>
+ XI'AN JIAOTONG UNIVERSITY <br>
   \*denotes equal contribution  
-  
-  <img src='https://instruct-pix2pix.timothybrooks.com/teaser.jpg'/>
+  ![start](https://github.com/user-attachments/assets/1c8c9379-35eb-4ba1-9f35-e2d403132cd3)
 
-## TL;DR: quickstart 
 
-Follow the instructions below to download and run InstructPix2Pix on your own images. These instructions have been tested on a GPU with >18GB VRAM. If you don't have a GPU, you may need to change the default configuration, or check out [other ways of using the model](https://github.com/timothybrooks/instruct-pix2pix#other-ways-of-using-instructpix2pix). 
+## Auxiliary model
 
-### Set up a conda environment, and download a pretrained model:
+### Hugging Face Hugging Face sam_vit_l_0b3195.pth sam_vit_h_4b8939.pth
+
+Follow the model Hugging Face [Hugging Face sam_vit_l_0b3195.pth](https://huggingface.co/spaces/facebook/ov-seg/tree/f9b1bcfebfafe86b45b0cf16a1797ca5663d81af) 。Putting pth models into the ckpt folder
+
+### Hugging Face sd-controlnet-canny, and download a pretrained model:
+Follow the model Hugging Face [sd-controlnet-canny](https://huggingface.co/lllyasviel/sd-controlnet-canny) 。Putting pth models into the Local-Guidance-Edit folder
+
+### Hugging Face clip-vit-base-patch32, and download a pretrained model:
+Follow the model  [clip-vit-base-patch32](https://huggingface.co/openai/clip-vit-base-patch32) 。Putting pth models into the Local-Guidance-Edit folder
+
+### Hugging Face stable-diffusion-inpainting, and download a pretrained model:
+Follow the model  [stable-diffusion-inpainting](https://huggingface.co/stabilityai/stable-diffusion-2-inpainting) 。Putting pth models into the Local-Guidance-Edit folder
+
+Follow the model  [stable-diffusion-v1-5](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5)
+
+Directory structure
 ```
-conda env create -f environment.yaml
-conda activate ip2p
-bash scripts/download_checkpoints.sh
+Local-Guidance-Edit/
+--runwayml/
+----stable-diffusion-inpainting
+----stable-diffusion-v1-5
 ```
+### Hugging Face stable-diffusion-inpainting, and download a pretrained model:
+Follow the model  [timbrooks/instruct-pix2pix](https://huggingface.co/spaces/timbrooks/instruct-pix2pix) 。Putting pth models into the Local-Guidance-Edit folder
+
+### Hugging Face vinesmsuic/magicbrush-jul7, and download a pretrained model:
+Follow the model  [magicbrush-jul7](https://huggingface.co/vinesmsuic/magicbrush-jul7) 。Putting pth models into the Local-Guidance-Edit folder
+
+## Setup
+
+Install all dependencies with:
+```
+ubuntu 20.04  python=3.9  pytorch=1.11.0  cuda=11.6  diffusers 0.31.0
+```
+conda create -n <your-name> python=3.9
+conda activate <your-name>
+pip install -r requirements.txt  -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ### Edit a single image:
 ```
-python edit_cli.py --input imgs/example.jpg --output imgs/output.jpg --edit "turn him into a cyborg"
+--instruction "Make the cat's featherswhite" --image_path "data/xxxx.jpg"
 
-# Optionally, you can specify parameters to tune your result:
-# python edit_cli.py --steps 100 --resolution 512 --seed 1371 --cfg-text 7.5 --cfg-image 1.2 --input imgs/example.jpg --output imgs/output.jpg --edit "turn him into a cyborg"
 ```
 
 ### Or launch your own interactive editing Gradio app:
