@@ -81,7 +81,7 @@ All our test images are from the internet. Image size size is 512*512
 
 ## Evaluation
 
-To generate plots like the ones in Figures 8 and 10 in the paper, run the following command:
+To generate plots like the ones in Figures x in the paper, run the following command:
 
 ```
 python metrics/compute_metrics.py --ckpt /path/to/your/model.ckpt
